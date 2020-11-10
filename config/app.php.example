@@ -1,0 +1,15 @@
+<?php
+return [
+    'timezone' => 'America/Chicago',
+    'csrf-token' => true,
+    // =========================================================================
+    // DATABASE
+    // =========================================================================
+    'database' => [
+        'DB_HOST'           =>  'localhost',
+        'DB_USERNAME'       =>  'root',
+        'DB_PASSWORD'       =>  '',
+        'DB_DATABASE'       =>  'test',
+        'DB_CHARSET'        =>  'utf8mb4',
+    ]
+];

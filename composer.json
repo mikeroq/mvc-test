@@ -1,0 +1,18 @@
+{
+    "require": {
+        "bramus/router": "~1.5",
+        "twig/twig": "^3.0",
+        "symfony/http-foundation": "^5.1",
+        "symfony/var-dumper": "^5.1",
+        "nette/database": "^3.0",
+        "symfony/security-csrf": "^5.1",
+        "filp/whoops": "^2.9"
+    },
+    "autoload": {
+        "classmap": [
+            "core\\helpers\\Extension.php",
+            "core\\Loader.php"
+        ],
+        "files": ["core/helpers/Functions.php"]
+    }
+}
