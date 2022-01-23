@@ -1,5 +1,8 @@
-<?php 
+<?php
 
-$route->get('/', 'HomeController@test');
+use Core\AppRouter;
 
-$route->post('/test/', 'HomeController@test2');
+$route = AppRouter::getInstance();
+$route->get('/', 'HomeController@index');
+$route->get('/test', 'TestController@test');
+$route->post('/test', 'TestController@test2');

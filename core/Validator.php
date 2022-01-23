@@ -1,10 +1,8 @@
 <?php
 namespace Core;
 
-use Core\Session;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Core\Response;
 
 class Validator{
     
@@ -33,11 +31,11 @@ class Validator{
             if($csrf == true && $token!=NULL){
                 $easyCSRF = new CsrfTokenManager();
                 $get_Token = new CsrfToken('_token', $token);
-                if($easyCSRF->isTokenValid($get_Token)){
-                    if(!$request->isAjax()):
+                if($easyCSRF->isTokenValid($get_Token)) {
+                    if(!$request->isAjax()) {
                         $easyCSRF->refreshToken('_token');
-                    endif;
-                }else{
+                    }
+                } else {
                     throw new \Exception('Invalid CSRF token');
                 }
             }
