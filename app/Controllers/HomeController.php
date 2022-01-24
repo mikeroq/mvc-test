@@ -1,10 +1,13 @@
 <?php
 namespace App\Controllers;
 
+use Core\View;
+use Laminas\Diactoros\Response;
+
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
-        return $this->view("welcome");
+        return View::make('welcome');
     }
 }

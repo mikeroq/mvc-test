@@ -1,13 +1,18 @@
 {
     "require": {
-        "bramus/router": "dev-master",
         "twig/twig": "^3.2",
         "symfony/http-foundation": "^5.2",
         "symfony/var-dumper": "^6.0",
         "nette/database": "^3.1",
         "symfony/security-csrf": "^5.2",
+        "vlucas/phpdotenv": "^5.4",
+        "league/route": "^5.1",
+        "laminas/laminas-diactoros": "^2.8",
+        "laminas/laminas-httphandlerrunner": "^2.1",
+        "league/container": "^4.2",
+        "illuminate/console": "^8.80",
         "spatie/ignition": "^1.0",
-        "vlucas/phpdotenv": "^5.4"
+        "illuminate/events": "^8.80"
     },
     "autoload": {
         "psr-4": {
@@ -15,7 +20,8 @@
             "Core\\": "core/"
         },
         "classmap": [
-            "core/helpers/Extension.php"
+            "core/helpers/Extension.php",
+            "commands"
         ],
         "files": ["core/helpers/Functions.php"]
     }

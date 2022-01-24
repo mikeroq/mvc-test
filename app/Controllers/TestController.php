@@ -1,21 +1,24 @@
 <?php
 namespace App\Controllers;
 
-use Core\Request;
+use Core\View;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
 
 class TestController extends Controller
 {
-    public function create()
+    public function create(): Response
     {
-        return $this->view("test");
+        return View::make("test");
     }
 
-    public function item($id)
+    public function show(ServerRequest $request): Response
     {
-        return $this->view("test2", compact('id'));
+        dd($request->getAttributes());
+        return View::make("test2", compact('id'));
     }
 
-    public function store(Request $request)
+    public function store(ServerRequest $request)
     {
         $this->validate($request);
         dd($this->request->get('test'));
