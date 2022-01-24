@@ -1,15 +1,23 @@
 <?php
 namespace App\Controllers;
 
+use Core\Request;
+
 class TestController extends Controller
 {
-    public function test()
+    public function create()
     {
         return $this->view("test");
     }
-    public function test2()
+
+    public function item($id)
     {
-        $this->validate($this->request);
+        return $this->view("test2", compact('id'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request);
         dd($this->request->get('test'));
     }
 }

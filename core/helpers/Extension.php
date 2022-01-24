@@ -16,7 +16,6 @@ class Extension extends AbstractExtension{
             new TwigFunction('assets', array($this, 'assets')),
             new TwigFunction('url', array($this, 'url')),
             new TwigFunction('current_url', array($this, 'current_url')),
-            new TwigFunction('custom', array($this, 'custom')),
             new TwigFunction('csrf', array($this, 'csrf')),
             new TwigFunction('error_has', array($this, 'error_has')),
             new TwigFunction('check_has', array($this, 'check_has'))
@@ -68,15 +67,6 @@ class Extension extends AbstractExtension{
             return '<meta name="_token" content="'.$token.'">';
         }else{
             return $token;
-        }
-    }
-
-    public function custom($func, $params){
-        $kernel = new Kernel;
-        if(method_exists($kernel, $func)){
-            return $kernel->$func($params);
-        }else{
-            return 'This function not exists';
         }
     }
 

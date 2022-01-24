@@ -1,30 +1,37 @@
 <?php
+
 namespace Core;
 
+use Exception;
+use Extension;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
 
-class BaseController{
-    
+class BaseController
+{
+
     protected Environment $template;
     public Request $request;
     public Response $response;
-    
 
-    public function __construct(){
+    public function __construct()
+    {
         if (!isset($GLOBALS['PerformanceMicrotime'])) {
             $GLOBALS['PerformanceMicrotime'] = microtime(true);
         }
-        $loader = new \Twig\Loader\FilesystemLoader(PUBLIC_PATH.'/resource/views');
-        $this->template = new \Twig\Environment($loader, array(
-            'cache' => realpath(PUBLIC_PATH.'storage/cache/views/'),
+        $loader = new FilesystemLoader(PUBLIC_PATH . '/resource/views');
+        $this->template = new Environment($loader, array(
+            'cache' => realpath(PUBLIC_PATH . 'storage/cache/views/'),
             'debug' => true,
             'charset' => 'utf8'
         ));
-        $this->template->addExtension(new \Twig\Extension\DebugExtension());
-        $this->template->addExtension(new \Extension());
+        $this->template->addExtension(new DebugExtension());
+        $this->template->addExtension(new Extension());
         $this->request = Request::all();
         $this->response = new Response(
             'Content',
@@ -36,13 +43,13 @@ class BaseController{
     public function getPage($request)
     {
         $page = @$request->get("page");
-        if(isset($page)){
-            if(is_numeric($page)){
+        if (isset($page)) {
+            if (is_numeric($page)) {
                 return $page;
-            }else{
+            } else {
                 redirect('/error');
             }
-        }else{
+        } else {
             return 1;
         }
     }
@@ -54,7 +61,7 @@ class BaseController{
      */
     public function view($path = '', $params = [])
     {
-       echo $this->template->render(str_replace('.', '/', $path) . '.twig', $params);
+        echo $this->template->render(str_replace('.', '/', $path) . '.twig', $params);
     }
 
     public function error(): string
@@ -63,21 +70,27 @@ class BaseController{
         return $this->view('errors.404.twig');
     }
 
+    /**
+     * @throws Exception
+     */
     public function validate($request, $arr = [])
     {
         Validator::request($request, $arr);
     }
 
+    /**
+     * @throws Exception
+     */
     public function error_has($name)
     {
-        $session = new Session;
+        $session = new Session();
         $errors = $session->get('errors');
-        if(isset($errors)){
-            if(isset($errors[$name])){
+        if (isset($errors)) {
+            if (isset($errors[$name])) {
                 $temp = $errors[$name];
                 unset($errors[$name]);
                 $session->set('errors', $errors);
-                throw new \Exception($temp);
+                throw new Exception($temp);
             }
         }
     }

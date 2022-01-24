@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Bramus\Router\Router;
@@ -6,11 +7,10 @@ use Core\Request;
 
 class AppRouter extends Router
 {
-    private static $instance = null;
+    private static ?AppRouter $instance = null;
 
     private function __construct()
     {
-
     }
 
     public static function getInstance(): AppRouter
@@ -39,12 +39,12 @@ class AppRouter extends Router
         return exit();
     }
 
-    public function middleware($pattern = NULL, $fn = NULL)
+    public function middleware($pattern = null, $fn = null)
     {
         $uri = $this->getCurrentUri();
-        if(str_contains($pattern, '*')) {
+        if (str_contains($pattern, '*')) {
             $pattern = str_replace('*', '', $pattern);
-            if(str_contains($uri, $pattern)){
+            if (str_contains($uri, $pattern)) {
                 $this->invokeController($pattern, $fn, $uri);
             }
         } elseif ($uri == $pattern) {
@@ -52,23 +52,25 @@ class AppRouter extends Router
         }
     }
 
-    private function invokeController($pattern, $fn, $uri)
-    {
-        if (is_callable($fn)) {
-            call_user_func_array($fn, []);
-        } else {
-            $pattern = preg_replace('/{([A-Za-z]*?)}/', '(\w+)', $pattern);
-            if (preg_match_all('#^'.$pattern.'$#', $uri, $matches, PREG_OFFSET_CAPTURE)) {
-                if (stripos($fn, '@') !== false) {
-                    list($controller, $method) = explode('@', $fn);
-                    $controller = 'App\\Middleware\\'.$controller;
-                    if (class_exists($controller)) {
-                        if (call_user_func_array(array(new $controller(), $method), []) === false) {
-                            forward_static_call_array(array($controller, $method), []);
-                        }
-                    }
-                }
-            }
-        }
-    }
+
+
+//    private function invokeController($pattern, $fn, $uri)
+//    {
+//        if (is_callable($fn)) {
+//            call_user_func_array($fn, []);
+//        } else {
+//            $pattern = preg_replace('/{([A-Za-z]*?)}/', '(\w+)', $pattern);
+//            if (preg_match_all('#^' . $pattern . '$#', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+//                if (stripos($fn, '@') !== false) {
+//                    list($controller, $method) = explode('@', $fn);
+//                    $controller = 'App\\Middleware\\' . $controller;
+//                    if (class_exists($controller)) {
+//                        if (call_user_func_array(array(new $controller(), $method), []) === false) {
+//                            forward_static_call_array(array($controller, $method), []);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
