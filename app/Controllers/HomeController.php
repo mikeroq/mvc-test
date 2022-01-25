@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Test;
 use Core\View;
 use Laminas\Diactoros\Response;
 

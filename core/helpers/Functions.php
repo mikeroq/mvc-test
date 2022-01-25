@@ -27,14 +27,17 @@ if (!function_exists('app')) {
      * @param string|null $abstract
      * @param array $parameters
      * @return mixed|Application
-     * @throws BindingResolutionException
      */
     function app(string $abstract = null, array $parameters = []): mixed
     {
         if (is_null($abstract)) {
             return Container::getInstance();
         }
-        return Container::getInstance()->make($abstract, $parameters);
+        try {
+            return Container::getInstance()->make($abstract, $parameters);
+        } catch (BindingResolutionException $e) {
+
+        }
     }
 }
 

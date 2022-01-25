@@ -1,18 +1,12 @@
 <?php
 
-namespace Config;
-
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
 return [
-    'timezone' => 'America/Chicago',
+    'TIMEZONE' => 'America/Chicago',
     // =========================================================================
     // DATABASE
     // =========================================================================
-    'database' => [
+    'DATABASE' => [
+        'DB_DRIVER' => $_ENV['DB_DRIVER'],
         'DB_HOST' => $_ENV['DB_HOST'],
         'DB_USERNAME' => $_ENV['DB_USERNAME'],
         'DB_PASSWORD' => $_ENV['DB_PASSWORD'],

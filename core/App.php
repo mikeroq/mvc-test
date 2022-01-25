@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
@@ -11,6 +12,7 @@ use League\Route\Router;
 class App extends Container
 {
     protected string $basePath;
+    protected array $config;
 
     public function __construct($basePath = null)
     {
@@ -20,7 +22,10 @@ class App extends Container
         static::setInstance($this);
         $this->instance('app', $this);
         $this->instance(Container::class, $this);
-
+        $dotenv = Dotenv::createImmutable(static::$instance->getBasePath());
+        $dotenv->load();
+        $this->config = include static::$instance->getBasePath() . '/config/app.php';
+        new Database();
     }
 
     public static function getInstance(): App
@@ -60,5 +65,10 @@ class App extends Container
     public function getAppPath(): string
     {
         return $this->basePath . '/app';
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
     }
 }
