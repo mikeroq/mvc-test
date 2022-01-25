@@ -12,7 +12,11 @@
         "league/container": "^4.2",
         "illuminate/console": "^8.80",
         "spatie/ignition": "^1.0",
-        "illuminate/events": "^8.80"
+        "illuminate/events": "^8.80",
+        "illuminate/database": "^8.80",
+        "illuminate/filesystem": "^8.80",
+        "illuminate/pagination": "^8.80",
+        "doctrine/dbal": "^3.3"
     },
     "autoload": {
         "psr-4": {

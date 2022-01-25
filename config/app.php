@@ -8,8 +8,7 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 return [
-    'timezone' => $_ENV['TIMEZONE'],
-    'csrf-token' => $_ENV['CSRF_TOKEN'],
+    'timezone' => 'America/Chicago',
     // =========================================================================
     // DATABASE
     // =========================================================================
