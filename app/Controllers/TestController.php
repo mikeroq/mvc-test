@@ -2,8 +2,8 @@
 namespace App\Controllers;
 
 use Core\View;
+use Core\Request;
 use Laminas\Diactoros\Response;
-use Laminas\Diactoros\ServerRequest;
 
 class TestController extends Controller
 {
@@ -12,16 +12,14 @@ class TestController extends Controller
         return View::make("test");
     }
 
-    public function show(ServerRequest $request): Response
+    public function show(Request $request): Response
     {
         dd($request->getAttributes());
         return View::make("test2", compact('id'));
     }
 
-    public function store(ServerRequest $request)
+    public function store(Request $request)
     {
-        $this->validate($request);
         dd($this->request->get('test'));
     }
 }
-

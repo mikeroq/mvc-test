@@ -9,6 +9,6 @@ class HelloWorld extends Command
 
     public function handle()
     {
-        $this->comment('Hello World');
+        $this->comment('Hello World ');
     }
 }

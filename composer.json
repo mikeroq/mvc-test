@@ -17,12 +17,19 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Core\\": "core/"
+            "Core\\": "core/",
+            "Illuminate\\": "vendor/illuminate/",
+            "Illuminate\\Support\\": ["vendor/illuminate/macroable/", "vendor/illuminate/collections/"]
         },
         "classmap": [
             "core/helpers/Extension.php",
             "commands"
         ],
-        "files": ["core/helpers/Functions.php"]
+        "files": [
+            "vendor/illuminate/collections/helpers.php",
+            "vendor/illuminate/events/functions.php",
+            "vendor/illuminate/support/helpers.php",
+            "core/helpers/Functions.php"
+        ]
     }
 }

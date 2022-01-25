@@ -1,17 +1,8 @@
 <?php
 namespace Core;
 
-use Symfony\Component\HttpFoundation\Request as RequestSymfony;
+use Laminas\Diactoros\ServerRequest;
 
-class Request extends RequestSymfony {
-    public static function all(): Request
-    {
-        return self::createFromGlobals();
-    }
-
-    public function isAjax()
-    {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
-    }
-    
+class Request extends ServerRequest
+{
 }

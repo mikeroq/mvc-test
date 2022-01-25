@@ -20,9 +20,9 @@ class View
         if (!isset($GLOBALS['PerformanceMicrotime'])) {
             $GLOBALS['PerformanceMicrotime'] = microtime(true);
         }
-        $loader = new FilesystemLoader('../resources/views');
+        $loader = new FilesystemLoader(base_path() . '/resources/views');
         $this->template = new Environment($loader, array(
-            'cache' => realpath( '../storage/cache/views/'),
+            'cache' => realpath( base_path() . '/storage/cache/views/'),
             'debug' => true,
             'charset' => 'utf8'
         ));
