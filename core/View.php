@@ -12,8 +12,6 @@ class View
 {
     public static ?View $instance = null;
     protected Environment $template;
-    public Request $request;
-    public Response $response;
 
     public function __construct()
     {
@@ -36,13 +34,9 @@ class View
             static::$instance = new View();
         }
 
-        try {
-            $body = static::$instance->template->render(str_replace('.', '/', $path) . '.twig', $params);
-            $response = new Response();
-            $response->getBody()->write($body);
-            return $response->withStatus(200);
-        } catch (\Exception $e) {
-
-        }
+        $body = static::$instance->template->render(str_replace('.', '/', $path) . '.twig', $params);
+        $response = new Response();
+        $response->getBody()->write($body);
+        return $response->withStatus(200);
     }
 }

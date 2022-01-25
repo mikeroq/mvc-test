@@ -23,19 +23,18 @@ class App extends Container
 
     }
 
-    public static function getInstance()
+    public static function getInstance(): App
     {
         if (is_null(static::$instance)) {
             static::$instance = new App();
-        } else {
-            return static::$instance;
         }
+        return static::$instance;
     }
 
     public function run()
     {
         $router = new Router();
-        require_once $this->basePath . '/routes/web.php';
+        require_once static::$instance->getBasePath() . '/routes/web.php';
         $request = ServerRequestFactory::fromGlobals(
             $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
         );

@@ -1,14 +1,15 @@
 <?php
 
-use App\Kernel;
-use Core\Session;
+use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class Extension extends AbstractExtension{
+class Extension extends AbstractExtension
+{
 
-    public function getFunctions() {
+    public function getFunctions(): array
+    {
         $newFunctions = [];
         $functions = [
             new TwigFunction('elapsed_time', array($this, 'elapsed_time')),
@@ -16,81 +17,57 @@ class Extension extends AbstractExtension{
             new TwigFunction('assets', array($this, 'assets')),
             new TwigFunction('url', array($this, 'url')),
             new TwigFunction('current_url', array($this, 'current_url')),
-            new TwigFunction('csrf', array($this, 'csrf')),
-            new TwigFunction('error_has', array($this, 'error_has')),
-            new TwigFunction('check_has', array($this, 'check_has'))
+            new TwigFunction('csrf', array($this, 'csrf'))
         ];
-        $result = array_merge($functions, $newFunctions);
-        return $result;
+        return array_merge($functions, $newFunctions);
     }
 
-    public function elapsed_time(){
+    public function elapsed_time(): int|string
+    {
         if (!isset($GLOBALS['PerformanceMicrotime'])) {
             return 0;
         }
-        return number_format(( microtime(true) - $GLOBALS['PerformanceMicrotime']), 4);
+        return number_format((microtime(true) - $GLOBALS['PerformanceMicrotime']), 4);
     }
 
-    public function path($slug = NULL, $current = NULL){
+    public function path($slug = null, $current = null)
+    {
         $numero = '';
-        foreach ($current as $key => $value) {
+        foreach ($current as $value) {
             $numero = $value;
         }
-        echo $slug.'?page='.$value;
+        echo $slug . '?page=' . $numero;
     }
 
-    public function assets($url = NULL) {
-        $root=(isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'];
-        $root.= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-        $url = $root . 'assets/' . $url;
-        return $url;
+    public function assets($url = null): string
+    {
+        $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+        $root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+        return $root . 'assets/' . $url;
     }
 
-    public function url($url = NULL) {
-        $root=(isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'];
-        $root.= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-        $url = $root . $url;
-        return $url;
+    public function url($url = null): string
+    {
+        $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+        $root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+        return $root . $url;
     }
 
-    public function current_url(){
-        $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        return $actual_link;
+    public function current_url(): string
+    {
+        return (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     }
 
-    public function csrf($type = NULL){
+    public function csrf($type = null): CsrfToken|string
+    {
         $easyCSRF = new CsrfTokenManager();
         $token = $easyCSRF->getToken('_token');
-        if($type == 'input'){
-            return '<input type="hidden" name="_token" value="'.$token.'">';
-        }elseif($type == 'meta'){
-            return '<meta name="_token" content="'.$token.'">';
-        }else{
+        if ($type == 'input') {
+            return '<input type="hidden" name="_token" value="' . $token . '">';
+        } elseif ($type == 'meta') {
+            return '<meta name="_token" content="' . $token . '">';
+        } else {
             return $token;
-        }
-    }
-
-    public function error_has($name){
-        $session = new Session;
-        $errors = $session->get('errors');
-        if(isset($errors)){
-            if(isset($errors[$name])){
-                $temp = $errors[$name];
-                unset($errors[$name]);
-                $session->set('errors', $errors);
-                return $temp;
-            }
-        }
-    }
-
-    public function check_has($name){
-        $session = new Session;
-        $errors = $session->get('errors');
-        if(isset($errors)){
-            if(isset($errors[$name])){
-                $temp = $errors[$name];
-                return $temp;
-            }
         }
     }
 }
