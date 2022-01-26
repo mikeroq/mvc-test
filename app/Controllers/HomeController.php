@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Test;
 use Core\View;
+use Illuminate\Support\Facades\DB;
 use Laminas\Diactoros\Response;
 
 class HomeController extends Controller

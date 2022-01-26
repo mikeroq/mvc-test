@@ -25,15 +25,6 @@ class App extends Container
         $dotenv = Dotenv::createImmutable(static::$instance->getBasePath());
         $dotenv->load();
         $this->config = include static::$instance->getBasePath() . '/config/app.php';
-        new Database();
-    }
-
-    public static function getInstance(): App
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new App();
-        }
-        return static::$instance;
     }
 
     public function run()
