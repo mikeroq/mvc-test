@@ -17,3 +17,4 @@ $artisan->setName('biscy command line interface');
 $artisan->resolve(HelloWorld::class);
 
 $artisan->run();
+

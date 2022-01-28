@@ -1,7 +1,6 @@
 <?php
 
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Aura\Session\CsrfToken;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,7 +16,7 @@ class Extension extends AbstractExtension
             new TwigFunction('assets', array($this, 'assets')),
             new TwigFunction('url', array($this, 'url')),
             new TwigFunction('current_url', array($this, 'current_url')),
-            new TwigFunction('csrf', array($this, 'csrf'))
+            new TwigFunction('csrf', array($this, 'csrf'), ['is_safe' => ['html']])
         ];
         return array_merge($functions, $newFunctions);
     }
@@ -60,12 +59,11 @@ class Extension extends AbstractExtension
 
     public function csrf($type = null): CsrfToken|string
     {
-        $easyCSRF = new CsrfTokenManager();
-        $token = $easyCSRF->getToken('_token');
+        $token = csrf_token()->getValue();
         if ($type == 'input') {
-            return '<input type="hidden" name="_token" value="' . $token . '">';
+            return '<input type="hidden" name="__csrf_value" value="' . $token . '">';
         } elseif ($type == 'meta') {
-            return '<meta name="_token" content="' . $token . '">';
+            return '<meta name="__csrf_value" content="' . $token . '">';
         } else {
             return $token;
         }

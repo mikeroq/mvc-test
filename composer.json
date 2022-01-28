@@ -1,22 +1,18 @@
 {
     "require": {
         "twig/twig": "^3.2",
-        "symfony/http-foundation": "^5.2",
         "symfony/var-dumper": "^6.0",
-        "nette/database": "^3.1",
-        "symfony/security-csrf": "^5.2",
         "vlucas/phpdotenv": "^5.4",
         "league/route": "^5.1",
         "laminas/laminas-diactoros": "^2.8",
         "laminas/laminas-httphandlerrunner": "^2.1",
-        "league/container": "^4.2",
         "illuminate/console": "^8.80",
         "spatie/ignition": "^1.0",
         "illuminate/events": "^8.80",
         "illuminate/database": "^8.80",
         "illuminate/filesystem": "^8.80",
         "illuminate/pagination": "^8.80",
-        "doctrine/dbal": "^3.3"
+        "aura/session": "^2.1"
     },
     "autoload": {
         "psr-4": {

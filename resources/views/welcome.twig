@@ -20,15 +20,17 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="mt-2">
-                        This is a demo app of a janky (m)vc pattern. It's totally shitty and basically emulates Laravel somewhat.
+                        This is a demo app of a janky mvc "framework". Kinda emulating Laravel.
                     </p>
-                    <pre class="text-sm text-neutral-300">
-Base Path:      {{  basePath }}
-App Path:       {{  appPath }}
-Public Path:    {{  publicPath }}
-                        </pre>
-
-
+                    <p class="mt-2">
+                        What's under the hood?<br>
+                        <ul>
+                            <li>✅ Eloquent - Well that's from Laravel...</li>
+                            <li>✅ Twig Template Engine - like a discount Blade</li>
+                            <li>✅ League Router - similar to Laravel's router</li>
+                            <li>✅ Spatie Ignition - For everyone outside of Laravel!</li>
+                        </ul>
+                    </p>
                     <p class="mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                              width="24" height="24"
@@ -40,16 +42,16 @@ Public Path:    {{  publicPath }}
                 </div>
                 <div>
                     <p class="mt-2">
-                        What's under the hood?<br>
-                        <ul>
-                            <li>✅  Eloquent - Well that's from Laravel...</li>
-                            <li>✅ Twig Template Engine - like a discount Blade</li>
-                            <li>✅ League Router - similar to Laravel's router</li>
-                            <li>✅ Spatie Ignition - For everyone outside of Laravel!</li>
-                        </ul>
+                    <pre class="text-sm text-neutral-300">
+Base Path:          {{  basePath }}
+App Path:           {{  appPath }}
+Public Path:        {{  publicPath }}
+Server Software:    {{  server }}
+                    </pre>
                     </p>
                 </div>
             </div>
+            Loaded in {{ elapsed_time() }} seconds
         </div>
     </div>
 </div>

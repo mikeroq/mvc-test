@@ -61,3 +61,16 @@ if (!function_exists('app_path')) {
         return app()->getAppPath();
     }
 }
+
+if (!function_exists('csrf_token')) {
+    function csrf_token()
+    {
+        return app()->session()->getCsrfToken();
+    }
+}
+
+if (!function_exists('session')) {
+    function session() {
+        return app()->session();
+    }
+}

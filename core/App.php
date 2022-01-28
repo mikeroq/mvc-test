@@ -13,18 +13,21 @@ class App extends Container
 {
     protected string $basePath;
     protected array $config;
+    protected Session $session;
 
     public function __construct($basePath = null)
     {
         if ($basePath) {
             $this->basePath = $basePath;
         }
+
         static::setInstance($this);
         $this->instance('app', $this);
         $this->instance(Container::class, $this);
         $dotenv = Dotenv::createImmutable(static::$instance->getBasePath());
         $dotenv->load();
         $this->config = include static::$instance->getBasePath() . '/config/app.php';
+        $this->session = new Session();
     }
 
     public function run()
@@ -61,5 +64,10 @@ class App extends Container
     public function getConfig()
     {
         return $this->config;
+    }
+
+    public function session(): Session
+    {
+        return $this->session;
     }
 }
