@@ -13,8 +13,7 @@ class Session
     public function __construct()
     {
         $sessionFactory = new SessionFactory();
-        $session = $sessionFactory->newInstance($_COOKIE);
-        $this->session = $session;
+        $this->session = $sessionFactory->newInstance($_COOKIE);
         $this->segment = $this->session->getSegment('biscy\Application');
     }
 
@@ -81,8 +80,13 @@ class Session
         $this->segment->keepFlash();
     }
 
-    public function getCsrfToken()
+    public function getCsrfToken(): string
     {
-        $this->session->getCsrfToken();
+        return $this->session->getCsrfToken()->getValue();
+    }
+
+    public function checkCsrfIsValid($token): bool
+    {
+        return $this->session->getCsrfToken()->isValid($token);
     }
 }

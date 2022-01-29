@@ -59,7 +59,7 @@ class Extension extends AbstractExtension
 
     public function csrf($type = null): CsrfToken|string
     {
-        $token = csrf_token()->getValue();
+        $token = csrf_token();
         if ($type == 'input') {
             return '<input type="hidden" name="__csrf_value" value="' . $token . '">';
         } elseif ($type == 'meta') {

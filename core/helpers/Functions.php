@@ -63,9 +63,13 @@ if (!function_exists('app_path')) {
 }
 
 if (!function_exists('csrf_token')) {
-    function csrf_token()
+    function csrf_token(string $token = null)
     {
-        return app()->session()->getCsrfToken();
+        if (empty($token)) {
+            return app()->session()->getCsrfToken();
+        } else {
+            return app()->session()->checkCsrfIsValid($token);
+        }
     }
 }
 

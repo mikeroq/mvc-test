@@ -15,6 +15,7 @@ class FormController extends Controller
     public function store(ServerRequest $request): Response
     {
         session()->flash('message', 'Testing');
-        return View::make('form',['post'=>$request->getQueryParams()]);
+        dd($request->getParsedBody());
+        return View::make('form',['post'=>$request->getParsedBody()]);
     }
 }
