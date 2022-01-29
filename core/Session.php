@@ -67,12 +67,18 @@ class Session
 
     public function flash(string $key, mixed $value): void
     {
-        $this->segment->setFlash($key, $value);
+        $this->segment->setFlashNow($key, $value);
+    }
+
+    public function getFlash(string $key)
+    {
+        return $this->segment->getFlash($key);
     }
 
     public function now(string $key, mixed $value): void
     {
         $this->segment->setFlashNow($key, $value);
+        $this->segment->clearFlash();
     }
 
     public function reflash(): void

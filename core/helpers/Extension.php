@@ -16,7 +16,8 @@ class Extension extends AbstractExtension
             new TwigFunction('assets', array($this, 'assets')),
             new TwigFunction('url', array($this, 'url')),
             new TwigFunction('current_url', array($this, 'current_url')),
-            new TwigFunction('csrf', array($this, 'csrf'), ['is_safe' => ['html']])
+            new TwigFunction('csrf', array($this, 'csrf'), ['is_safe' => ['html']]),
+            new TwigFunction('flash', array($this, 'flash'), ['is_safe' => ['html']])
         ];
         return array_merge($functions, $newFunctions);
     }
@@ -67,5 +68,10 @@ class Extension extends AbstractExtension
         } else {
             return $token;
         }
+    }
+
+    public function flash($key)
+    {
+        return session()->getFlash($key);
     }
 }
