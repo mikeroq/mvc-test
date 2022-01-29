@@ -15,6 +15,7 @@ $artisan->setName('biscy command line interface');
 
 // Bind a command
 $artisan->resolve(HelloWorld::class);
+$artisan->resolve(ServeCommand::class);
 
 $artisan->run();
 
