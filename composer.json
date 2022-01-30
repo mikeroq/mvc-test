@@ -22,14 +22,13 @@
             "Illuminate\\Support\\": ["vendor/illuminate/macroable/", "vendor/illuminate/collections/"]
         },
         "classmap": [
-            "core/helpers/Extension.php",
-            "commands"
+            "commands/"
         ],
         "files": [
             "vendor/illuminate/collections/helpers.php",
             "vendor/illuminate/events/functions.php",
             "vendor/illuminate/support/helpers.php",
-            "core/helpers/Functions.php"
+            "core/helpers.php"
         ]
     }
 }

@@ -34,14 +34,15 @@ class App extends Container
     {
         $router = new Router();
         require_once static::$instance->getBasePath() . '/routes/web.php';
-        $request = ServerRequestFactory::fromGlobals(
-            $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-        );
+        $request = ServerRequestFactory::fromGlobals();
         try {
             $response = $router->dispatch($request);
         } catch (NotFoundException $exception) {
             $uri = $request->getUri();
-            $response = View::make('errors.404', ['code' => '404', 'message' => 'Requested URL:<br>' . $uri . '<br>not found'])->withStatus('404');
+            $response = View::make(
+                'errors.404',
+                ['code' => '404', 'message' => 'Requested URL:<br>' . $uri . '<br>not found']
+            )->withStatus('404');
         }
         (new SapiEmitter())->emit($response);
     }

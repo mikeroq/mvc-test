@@ -2,7 +2,6 @@
 
 namespace Core;
 
-use Extension;
 use Laminas\Diactoros\Response;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -25,7 +24,7 @@ class View
             'charset' => 'utf8'
         ));
         $this->template->addExtension(new DebugExtension());
-        $this->template->addExtension(new Extension());
+        $this->template->addExtension(new TwigExtension());
     }
 
     public static function make($path = '', $params = []): Response

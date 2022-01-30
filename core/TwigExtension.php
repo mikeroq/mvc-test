@@ -1,10 +1,15 @@
 <?php
 
+namespace Core;
+
 use Aura\Session\CsrfToken;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class Extension extends AbstractExtension
+use function csrf_token;
+use function session;
+
+class TwigExtension extends AbstractExtension
 {
 
     public function getFunctions(): array
@@ -17,7 +22,7 @@ class Extension extends AbstractExtension
             new TwigFunction('url', array($this, 'url')),
             new TwigFunction('current_url', array($this, 'current_url')),
             new TwigFunction('csrf', array($this, 'csrf'), ['is_safe' => ['html']]),
-            new TwigFunction('flash', array($this, 'flash'), ['is_safe' => ['html']])
+            new TwigFunction('session', array($this, 'session'), ['is_safe' => ['html']])
         ];
         return array_merge($functions, $newFunctions);
     }
@@ -70,8 +75,12 @@ class Extension extends AbstractExtension
         }
     }
 
-    public function flash($key)
+    public function session($key)
     {
-        return session()->getFlash($key);
+        if (session()->has($key)) {
+            return session()->get($key);
+        } else {
+            return session()->getFlash($key);
+        }
     }
 }
